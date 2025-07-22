@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import type { RegisterInputs } from "@/schemas/RegisterSchema";
 import RegisterOnSubmit from "@/formHandlers/RegisterHandler";
 
-import { useStore } from "@/stateManager";
+import { AuthState } from "@/stateManager";
 
 export default function RegisterPage() {
   let navigate = useNavigate();
@@ -18,13 +18,13 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterInputs>();
 
-  const { updateLogged } = useStore();
+  const { setToken } = AuthState();
 
   return (
     <div className="bg-neutral-100 p-5 rounded-lg flex flex-col gap-5 xl:min-w-[350px]">
       <h1 className="text-center text-2xl font-bitcount font-bold">Register</h1>
       <form
-        onSubmit={handleSubmit(RegisterOnSubmit(navigate, updateLogged))}
+        onSubmit={handleSubmit(RegisterOnSubmit(navigate, setToken))}
         className="flex flex-col gap-4"
       >
         <div>

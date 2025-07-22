@@ -5,7 +5,7 @@ import type { NavigateFunction } from "react-router";
 const RegisterOnSubmit =
   (
     navigate: NavigateFunction,
-    updateLogged: () => void
+    setToken: (token: string) => void
   ): SubmitHandler<RegisterInputs> =>
   (data) => {
     fetch(`http://localhost:8080/v1/register`, {
@@ -18,7 +18,7 @@ const RegisterOnSubmit =
       .then((resp) => resp.json())
       .then((data) => {
         if (data["message"] == "success") {
-          updateLogged();
+          setToken(data["jwt"]);
           navigate("/", { replace: true });
         }
       });

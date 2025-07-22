@@ -1,16 +1,29 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
-import { useStore } from "@/stateManager";
+import { AuthState } from "@/stateManager";
 
 export default function ProtectedRoute() {
-  const { logged } = useStore();
+  const { token, setToken } = AuthState();
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (!logged) {
-      navigate("/login", { replace: true });
-    }
-  }, [logged]);
+    console.log(token);
+
+    fetch(`http://localhost:8080/v1/token`, {
+      method: "POST",
+      body: JSON.stringify({
+        token: token,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data: ", data);
+        if (data["message"] != "ok") {
+          setToken(null);
+          navigate("/login", { replace: true });
+        }
+      });
+  }, [token]);
 
   return <Outlet />;
 }
