@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { AuthState } from "@/stateManager";
 
 export default function ProtectedRoute() {
   const { token, setToken } = AuthState();
+  const [loaded, setLoaded] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -18,9 +19,13 @@ export default function ProtectedRoute() {
         if (data["message"] != "ok") {
           setToken(null);
           navigate("/login", { replace: true });
+          return;
         }
+        setLoaded(true);
       });
   }, [token]);
 
-  return <Outlet />;
+  if (loaded) {
+    return <Outlet />;
+  }
 }
