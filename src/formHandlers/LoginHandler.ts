@@ -5,7 +5,7 @@ import type { NavigateFunction } from "react-router";
 const LoginOnSubmit =
   (
     navigate: NavigateFunction,
-    updateLogged: () => void
+    setToken: (token: string) => void
   ): SubmitHandler<LoginInputs> =>
   (data) => {
     fetch(`http://localhost:8080/v1/login`, {
@@ -15,7 +15,7 @@ const LoginOnSubmit =
       .then((resp) => resp.json())
       .then((data) => {
         if (data["message"] == "success") {
-          updateLogged();
+          setToken(data["jwt"]);
           navigate("/", { replace: true });
         }
       });
