@@ -8,7 +8,7 @@ const RegisterOnSubmit =
     setToken: (token: string) => void
   ): SubmitHandler<RegisterInputs> =>
   (data) => {
-    fetch(`http://localhost:8080/v1/register`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/register`, {
       method: "POST",
       body: JSON.stringify({
         username: data.username,

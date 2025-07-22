@@ -7,9 +7,7 @@ export default function ProtectedRoute() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    console.log(token);
-
-    fetch(`http://localhost:8080/v1/token`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/token`, {
       method: "POST",
       body: JSON.stringify({
         token: token,
@@ -17,7 +15,6 @@ export default function ProtectedRoute() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data: ", data);
         if (data["message"] != "ok") {
           setToken(null);
           navigate("/login", { replace: true });

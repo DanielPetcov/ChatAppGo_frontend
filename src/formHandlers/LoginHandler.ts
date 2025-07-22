@@ -8,7 +8,7 @@ const LoginOnSubmit =
     setToken: (token: string) => void
   ): SubmitHandler<LoginInputs> =>
   (data) => {
-    fetch(`http://localhost:8080/v1/login`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/login`, {
       method: "POST",
       body: JSON.stringify(data),
     })
