@@ -1,11 +1,20 @@
 import type { InChatMessageType } from "@/types/chat";
 import ChatMessage from "./chatMessage";
+import { useEffect, useRef } from "react";
 
 export default function ChatMessagesWrapper({
   messages,
 }: {
   messages: InChatMessageType[];
 }) {
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   if (messages.length === 0) {
     return <div></div>;
   }
@@ -19,6 +28,7 @@ export default function ChatMessagesWrapper({
           stranger={message.stranger}
         />
       ))}
+      <div ref={bottomRef}></div>
     </div>
   );
 }

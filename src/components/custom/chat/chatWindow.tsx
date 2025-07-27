@@ -6,6 +6,8 @@ import type { InChatMessageType, ReceiveMessageType } from "@/types/chat";
 import { AuthState } from "@/stateManager";
 import { useEffect } from "react";
 
+import { GetChatMessages } from "@/api/chat";
+
 export function ChatWindow({ id }: { id: string | undefined }) {
   if (!id) {
     return <div>select a chat</div>;
@@ -16,13 +18,17 @@ export function ChatWindow({ id }: { id: string | undefined }) {
   const { userID } = AuthState();
 
   useEffect(() => {
+    if (!userID || !id) return;
+    setMessages([]);
+    GetChatMessages(id, userID, setMessages);
+  }, [id]);
+
+  useEffect(() => {
     if (!ws || !userID) return;
 
     ws.onmessage = function (evt) {
       const data: ReceiveMessageType = JSON.parse(evt.data);
       setMessages((prev) => {
-        console.log(data);
-        console.log(userID);
         return [
           ...prev,
           {
