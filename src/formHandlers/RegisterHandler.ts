@@ -5,7 +5,8 @@ import type { NavigateFunction } from "react-router";
 const RegisterOnSubmit =
   (
     navigate: NavigateFunction,
-    setToken: (token: string) => void
+    setToken: (token: string) => void,
+    setUserID: (userID: string) => void
   ): SubmitHandler<RegisterInputs> =>
   (data) => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/register`, {
@@ -19,6 +20,7 @@ const RegisterOnSubmit =
       .then((data) => {
         if (data["message"] == "success") {
           setToken(data["jwt"]);
+          setUserID(data["userID"]);
           navigate("/", { replace: true });
         }
       });

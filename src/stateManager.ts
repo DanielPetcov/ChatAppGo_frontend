@@ -5,9 +5,11 @@ import type { AuthStateTypes } from "./interfaces/auth";
 export const AuthState = create<AuthStateTypes>()(
   persist(
     (set) => ({
-      token: "null",
+      token: null,
+      userID: null,
       setToken: (newToken) => set({ token: newToken }),
-      logout: () => set({ token: null }),
+      setUserID: (newUserID) => set({ userID: newUserID }),
+      logout: () => set({ token: null, userID: null }),
     }),
     {
       name: "auth-storage",

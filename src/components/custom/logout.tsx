@@ -6,9 +6,9 @@ export default function LogoutButton() {
 
   return (
     <Button
+      variant={"secondary"}
       onClick={() => {
         logout();
-        console.log(`${import.meta.env.VITE_BACKEND_URL}`);
       }}
     >
       Logout

@@ -8,20 +8,23 @@ import LoginPage from "./pages/Login.tsx";
 import RegisterPage from "./pages/Register.tsx";
 import ProtectedRoute from "./pages/ProtectedRoute.tsx";
 import PageNotFound from "./pages/PageNotFound.tsx";
+import { WebSocketProvider } from "./types/websocketProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute />}>
-          <Route index element={<Home />} />
-        </Route>
-        <Route element={<AutorisationTemplate />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-        </Route>
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <WebSocketProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute />}>
+            <Route index element={<Home />} />
+          </Route>
+          <Route element={<AutorisationTemplate />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </WebSocketProvider>
   </StrictMode>
 );

@@ -10,7 +10,7 @@ import { AuthState } from "@/stateManager";
 
 export default function LoginPage() {
   let navigate = useNavigate();
-  const { setToken } = AuthState();
+  const { setToken, setUserID } = AuthState();
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ export default function LoginPage() {
     <div className="bg-neutral-100 p-5 rounded-lg flex flex-col gap-5 xl:min-w-[350px]">
       <h1 className="text-center text-2xl font-bitcount font-bold">LOGIN</h1>
       <form
-        onSubmit={handleSubmit(LoginOnSubmit(navigate, setToken))}
+        onSubmit={handleSubmit(LoginOnSubmit(navigate, setToken, setUserID))}
         className="flex flex-col gap-4"
       >
         <div>

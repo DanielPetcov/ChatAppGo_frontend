@@ -8,6 +8,11 @@ export default function ProtectedRoute() {
   let navigate = useNavigate();
 
   useEffect(() => {
+    if (token == null) {
+      navigate("/login", { replace: true });
+      return;
+    }
+
     fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/token`, {
       method: "POST",
       body: JSON.stringify({
