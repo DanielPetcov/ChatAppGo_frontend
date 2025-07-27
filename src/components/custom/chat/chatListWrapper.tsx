@@ -7,6 +7,8 @@ import CreateChatButton from "./createChatButton";
 import LogoutButton from "../logout";
 import AddToChatButton from "./addToChatButton";
 
+import { Separator } from "@/components/ui/separator";
+
 export default function ChatListWrapper({
   setCurrentChat,
 }: {
@@ -33,24 +35,28 @@ export default function ChatListWrapper({
   }
 
   return (
-    <div className="bg-neutral-300 p-5">
-      <div className="flex flex-col gap-2">
-        <AddToChatButton token={token} />
-        <CreateChatButton token={token} />
-      </div>
-      <div>Chats list:</div>
-      {chats && (
+    <div className="bg-neutral-300 p-5 flex flex-col gap-2 justify-between">
+      <div className="flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-2">
-          {chats.map((chat, index) => (
-            <ChatItem
-              key={index}
-              id={chat.ID}
-              name={chat.Name}
-              setCurrentChat={setCurrentChat}
-            />
-          ))}
+          <AddToChatButton token={token} />
+          <CreateChatButton token={token} />
         </div>
-      )}
+        <Separator />
+        <div className="flex flex-1 overflow-y-auto cursor-none">
+          {chats && (
+            <div className="flex flex-col gap-2">
+              {chats.map((chat, index) => (
+                <ChatItem
+                  key={index}
+                  id={chat.ID}
+                  name={chat.Name}
+                  setCurrentChat={setCurrentChat}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
       <LogoutButton />
     </div>
   );
