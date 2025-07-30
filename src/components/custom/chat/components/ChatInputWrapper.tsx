@@ -17,7 +17,7 @@ export default function ChatInputWrapper({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: {},
   } = useForm<ChatInputSchema>();
 
   return (
