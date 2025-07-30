@@ -1,17 +1,16 @@
 import { AuthState } from "@/stateManager";
-import { Button } from "../ui/button";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 export default function LogoutButton() {
   const { logout } = AuthState();
 
   return (
-    <Button
-      variant={"secondary"}
+    <DropdownMenuItem
       onClick={() => {
         logout();
       }}
     >
       Logout
-    </Button>
+    </DropdownMenuItem>
   );
 }

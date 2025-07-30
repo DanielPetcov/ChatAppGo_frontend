@@ -7,8 +7,10 @@ export const AuthState = create<AuthStateTypes>()(
     (set) => ({
       token: null,
       userID: null,
+      userName: null,
       setToken: (newToken) => set({ token: newToken }),
       setUserID: (newUserID) => set({ userID: newUserID }),
+      setUserName: (name) => set({ userName: name }),
       logout: () => set({ token: null, userID: null }),
     }),
     {

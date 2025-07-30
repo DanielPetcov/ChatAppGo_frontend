@@ -5,6 +5,8 @@ import CreateChatOnSubmit from "@/formHandlers/CreateChatHandler";
 import { useForm } from "react-hook-form";
 import type { CreateChatInput } from "@/schemas/CreateChatSchema";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { SidebarGroupAction } from "@/components/ui/sidebar";
+import { Plus } from "lucide-react";
 
 export default function CreateChatButton({ token }: { token: string }) {
   const {
@@ -16,7 +18,10 @@ export default function CreateChatButton({ token }: { token: string }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full">Create a chat</Button>
+        <SidebarGroupAction>
+          <Plus />
+          <span className="sr-only">Create a chat</span>
+        </SidebarGroupAction>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Create a new chat</DialogTitle>

@@ -6,7 +6,8 @@ const LoginOnSubmit =
   (
     navigate: NavigateFunction,
     setToken: (token: string) => void,
-    setUserID: (userID: string) => void
+    setUserID: (userID: string) => void,
+    setUserName: (name: string) => void
   ): SubmitHandler<LoginInputs> =>
   (data) => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/login`, {
@@ -18,6 +19,7 @@ const LoginOnSubmit =
         if (data["message"] == "success") {
           setToken(data["jwt"]);
           setUserID(data["userID"]);
+          setUserName(data["userName"]);
           navigate("/", { replace: true });
         }
       });

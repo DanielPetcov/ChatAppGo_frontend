@@ -32,6 +32,30 @@ export function CreateChat(chatName: string, token: string) {
     });
 }
 
+export function RemoveUserFromChat(
+  chatID: string,
+  token: string,
+  userID: string,
+  setChats: Dispatch<SetStateAction<ChatType[] | undefined>>
+) {
+  fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/chat/user`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      chatID: chatID,
+      userID: userID,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data["message"] === "ok") {
+        setChats((prev) => prev?.filter((value) => value.ID != chatID));
+      }
+    });
+}
+
 export function AddToChat(chatID: string, token: string) {
   fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/chat/user`, {
     method: "POST",

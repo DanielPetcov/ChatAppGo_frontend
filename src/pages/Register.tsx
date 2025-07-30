@@ -18,13 +18,15 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterInputs>();
 
-  const { setToken, setUserID } = AuthState();
+  const { setToken, setUserID, setUserName } = AuthState();
 
   return (
     <div className="bg-neutral-100 p-5 rounded-lg flex flex-col gap-5 xl:min-w-[350px]">
       <h1 className="text-center text-2xl font-bitcount font-bold">Register</h1>
       <form
-        onSubmit={handleSubmit(RegisterOnSubmit(navigate, setToken, setUserID))}
+        onSubmit={handleSubmit(
+          RegisterOnSubmit(navigate, setToken, setUserID, setUserName)
+        )}
         className="flex flex-col gap-4"
       >
         <div>

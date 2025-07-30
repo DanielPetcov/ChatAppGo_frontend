@@ -6,7 +6,8 @@ const RegisterOnSubmit =
   (
     navigate: NavigateFunction,
     setToken: (token: string) => void,
-    setUserID: (userID: string) => void
+    setUserID: (userID: string) => void,
+    setUserName: (name: string) => void
   ): SubmitHandler<RegisterInputs> =>
   (data) => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/register`, {
@@ -21,6 +22,7 @@ const RegisterOnSubmit =
         if (data["message"] == "success") {
           setToken(data["jwt"]);
           setUserID(data["userID"]);
+          setUserName(data["userName"]);
           navigate("/", { replace: true });
         }
       });

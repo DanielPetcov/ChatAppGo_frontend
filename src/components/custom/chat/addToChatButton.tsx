@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { SidebarGroupAction } from "@/components/ui/sidebar";
+import { Plus } from "lucide-react";
 
 export default function AddToChatButton({ token }: { token: string }) {
   const {
@@ -16,7 +18,10 @@ export default function AddToChatButton({ token }: { token: string }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full">Add a chat</Button>
+        <SidebarGroupAction title="Add a chat">
+          <Plus />
+          <span className="sr-only">Add a project</span>
+        </SidebarGroupAction>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Add a chat</DialogTitle>
