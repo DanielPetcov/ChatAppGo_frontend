@@ -10,7 +10,7 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
   if (!wsRef.current && token) {
     wsRef.current = new WebSocket(
-      `${import.meta.env.VITE_BACKEND_URL}/v1/ws?token=${token}`
+      `${import.meta.env.VITE_BACKEND_URL}/v1/wss?token=${token}`
     );
 
     wsRef.current.onopen = () => {
