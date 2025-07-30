@@ -9,11 +9,12 @@ import { MoreHorizontal } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 import DeleteChatButton from "./deleteChatButton";
 import { AuthState } from "@/stateManager";
-import type { ChatType } from "@/types/chat";
+import type { ChatType, CurrentChat } from "@/types/chat";
 export default function ChatItem({
   id,
   name,
   openSidebar,
+  setOpenSidebarMobile,
   currentChat,
   setCurrentChat,
   setChats,
@@ -21,13 +22,22 @@ export default function ChatItem({
   id: string;
   name: string;
   openSidebar: boolean;
-  currentChat: string | undefined;
-  setCurrentChat: Dispatch<SetStateAction<string | undefined>>;
+  setOpenSidebarMobile: (open: boolean) => void;
+  currentChat: CurrentChat | undefined;
+  setCurrentChat: Dispatch<SetStateAction<CurrentChat | undefined>>;
   setChats: Dispatch<SetStateAction<ChatType[] | undefined>>;
 }) {
   if (!openSidebar) {
     return (
-      <div className=" cursor-pointer" onClick={() => setCurrentChat(id)}>
+      <div
+        className=" cursor-pointer"
+        onClick={() =>
+          setCurrentChat({
+            id: id,
+            name: name,
+          })
+        }
+      >
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
@@ -41,8 +51,14 @@ export default function ChatItem({
   return (
     <>
       <SidebarMenuButton
-        style={{ opacity: currentChat === id ? "100%" : "50%" }}
-        onClick={() => setCurrentChat(id)}
+        style={{ opacity: currentChat?.id === id ? "100%" : "50%" }}
+        onClick={() => {
+          setCurrentChat({
+            id: id,
+            name: name,
+          });
+          setOpenSidebarMobile(false);
+        }}
       >
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />

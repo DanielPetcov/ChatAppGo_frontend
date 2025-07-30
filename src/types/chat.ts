@@ -20,4 +20,15 @@ type InChatMessageType = {
   stranger: boolean;
 };
 
-export type { ChatType, GetChatsType, ReceiveMessageType, InChatMessageType };
+type CurrentChat = {
+  id: string;
+  name: string;
+};
+
+export type {
+  ChatType,
+  GetChatsType,
+  ReceiveMessageType,
+  InChatMessageType,
+  CurrentChat,
+};

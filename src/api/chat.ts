@@ -16,7 +16,12 @@ export async function GetChats(token: string): Promise<ChatType[] | undefined> {
   return data.chats;
 }
 
-export function CreateChat(chatName: string, token: string) {
+export function CreateChat(
+  chatName: string,
+  token: string,
+  setChats: Dispatch<SetStateAction<ChatType[] | undefined>>,
+  setOpen: Dispatch<SetStateAction<boolean>>
+) {
   fetch(`${import.meta.env.VITE_BACKEND_URL}/v1/chat`, {
     method: "POST",
     headers: {
@@ -28,7 +33,16 @@ export function CreateChat(chatName: string, token: string) {
   })
     .then((res) => res.json())
     .then((data: GetChatsType) => {
-      console.log(data);
+      if (data["message"] === "ok") {
+        setChats((prev) => {
+          if (prev) {
+            setOpen(false);
+            return [...prev, data["chats"][0]];
+          } else {
+            return [];
+          }
+        });
+      }
     });
 }
 

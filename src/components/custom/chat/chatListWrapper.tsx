@@ -1,7 +1,7 @@
 import ChatItem from "./chatItem";
 import { GetChats } from "@/api/chat";
 import { AuthState } from "@/stateManager";
-import type { ChatType } from "@/types/chat";
+import type { ChatType, CurrentChat } from "@/types/chat";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import CreateChatButton from "./createChatButton";
 import LogoutButton from "../logout";
@@ -29,13 +29,13 @@ export default function ChatListWrapper({
   currentChat,
   setCurrentChat,
 }: {
-  currentChat: string | undefined;
-  setCurrentChat: Dispatch<SetStateAction<string | undefined>>;
+  currentChat: CurrentChat | undefined;
+  setCurrentChat: Dispatch<SetStateAction<CurrentChat | undefined>>;
 }) {
   const { token, userName } = AuthState();
   const [loaded, setLoaded] = useState(false);
   const [chats, setChats] = useState<ChatType[] | undefined>([]);
-  const { open } = useSidebar();
+  const { open, setOpenMobile } = useSidebar();
 
   useEffect(() => {
     if (!token || token == "") return;
@@ -58,7 +58,7 @@ export default function ChatListWrapper({
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Chats</SidebarGroupLabel>
-          <CreateChatButton token={token} />
+          <CreateChatButton token={token} setChats={setChats} />
           <SidebarGroupContent>
             <SidebarMenu>
               {chats &&
@@ -69,6 +69,7 @@ export default function ChatListWrapper({
                       id={chat.ID}
                       name={chat.Name}
                       openSidebar={open}
+                      setOpenSidebarMobile={setOpenMobile}
                       currentChat={currentChat}
                       setCurrentChat={setCurrentChat}
                       setChats={setChats}
